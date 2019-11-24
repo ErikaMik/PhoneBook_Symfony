@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/home", name="home.")
+ * @Route("/", name="home.")
  */
 
 class  MainController extends AbstractController
@@ -31,8 +31,17 @@ class  MainController extends AbstractController
     {
         $name = $request->get('name');
 
-        return $this->render('home/custom.html.twig', [
+        return $this->render('home/contact.html.twig', [
             'name' => $name
         ]);
     }
+
+//    /**
+//     * @Route("/create-article")
+//     */
+//    public function createAction(Request $request) {
+//
+//
+//
+//    }
 }

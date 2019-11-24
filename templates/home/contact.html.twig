@@ -1,0 +1,19 @@
+{% extends('base.html.twig') %}
+{% block body %}
+    <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h1 class="text-center">Add New Contact</h1>
+                    <form action="{{ path('login') }}" method="POST">
+                        <label class="mt-2">Contact Name</label>
+                        <input class="form-control" type="text" name="_name" placeholder="Name...">
+                        <label class="mt-2">Phone Number</label>
+                        <input class="form-control" type="password" name="_number" placeholder="Phone number...">
+                        <button type="submit" class="btn btn-info mt-4">ADD CONTACT</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

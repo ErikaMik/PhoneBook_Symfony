@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello!{% endblock %}
+{% block title %}Phone Book{% endblock %}
 
 {% block body %}
 <style>
@@ -8,26 +8,23 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     .error {color: indianred}
 </style>
-
-{#<div class="example-wrapper">#}
 <div class="row mt-3">
     <div class="col-8 offset-2">
         <div class="card bg-light">
             <div class="card-body">
                 <h1 class="text-center">Please Login or <a class="btn btn-info ml-2" href="{{ path('app_register') }}">REGISTER</a></h1>
 
-    {% if error %}
-        <span class="error">{{ error.messageKey }}</span>
-    {% endif %}
+                {% if error %}
+                    <span class="error">{{ error.messageKey }}</span>
+                {% endif %}
 
-    <form action="{{ path('login') }}" method="POST">
-        <input class="form-control mt-3" type="text" name="_username" value="{{ last_username }}" placeholder="Username...">
-        <input class="form-control mt-3" type="password" name="_password" placeholder="Password...">
-        <button type="submit" class="btn btn-info mt-4">Login</button>
-    </form>
+                <form action="{{ path('login') }}" method="POST">
+                    <input class="form-control mt-3" type="text" name="_username" value="{{ last_username }}" placeholder="Username...">
+                    <input class="form-control mt-3" type="password" name="_password" placeholder="Password...">
+                    <button type="submit" class="btn btn-info mt-4">Login</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-{#</div>#}
 {% endblock %}

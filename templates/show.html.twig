@@ -1,0 +1,41 @@
+{% extends('base.html.twig') %}
+{% block body %}
+    <h1>My Phone Book</h1>
+
+<style>
+    th, td {
+        padding: 10px;
+    }
+    th {
+        text-align: left;
+    }
+</style>
+
+{% if contacts is not empty %}
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>#</th>
+            <th>#</th>
+            <th>Share</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.number }}</td>
+                <td><a href="delete-contact/{{ contact.id }}">Delete</a></td>
+                <td><a href="update-contact/{{ contact.id }}">Update</a></td>
+                <td><a href="share-contact/{{ contact.id }}">Share</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have no contacts</p>
+{% endif %}
+
+{% endblock %}
