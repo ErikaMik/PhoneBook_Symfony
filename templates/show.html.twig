@@ -17,9 +17,9 @@
         <tr>
             <th>Name</th>
             <th>Phone</th>
-            <th>#</th>
-            <th>#</th>
-            <th>Share</th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -27,9 +27,9 @@
             <tr>
                 <td>{{ contact.name }}</td>
                 <td>{{ contact.number }}</td>
-                <td><a href="delete-contact/{{ contact.id }}">Delete</a></td>
-                <td><a href="update-contact/{{ contact.id }}">Update</a></td>
-                <td><a href="share-contact/{{ contact.id }}">Share</a></td>
+                <td><a class="btn btn-outline-info" href="update-contact/{{ contact.id }}">Update</a></td>
+                <td><a class="btn btn-outline-info" href="share-contact/{{ contact.id }}">Share</a></td>
+                <td><a class="btn btn-outline-danger" href="delete-contact/{{ contact.id }}">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -38,4 +38,26 @@
     <p>You have no contacts</p>
 {% endif %}
 
+{% if sharedContacts is not empty %}
+    <h3 class="mt-2">Shared</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sharedContact in sharedContacts %}
+            <tr>
+                <td>{{ sharedContact.name }}</td>
+                <td>{{ sharedContact.number }}</td>
+                <td>{{ '' }}</td>
+            </tr>
+        {% endfor %}
+{% else %}
+
+{% endif %}
+        </tbody>
+    </table>
 {% endblock %}

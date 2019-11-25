@@ -11,21 +11,21 @@
     }
 </style>
     <h1>Shared contacts</h1>
-{% if contacts is not empty %}
+{% if sharedContacts is not empty %}
     <table>
         <thead>
         <tr>
             <th>Name</th>
             <th>Phone</th>
-            <th>Sharing</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        {% for contact in contacts %}
+        {% for contact in sharedContacts %}
             <tr>
                 <td>{{ contact.name }}</td>
                 <td>{{ contact.number }}</td>
-                <td><a href="terminate-share/{{ contact.id }}">Stop sharing</a></td>
+                <td><a class="btn btn-outline-warning" href="terminate-share/{{ contact.id }}">Stop sharing</a></td>
             </tr>
         {% endfor %}
         </tbody>

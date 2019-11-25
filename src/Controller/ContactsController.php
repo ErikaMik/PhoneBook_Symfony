@@ -79,19 +79,44 @@ class ContactsController extends AbstractController
     }
 
     /**
-     * @Route("/show-contacts", name="show-contacts")
+     * @Route("/", name="index")
      */
     public function showContacts()
     {
         $userId = $this->getUser()->getId();
+
         $contacts = $this->getDoctrine()
             ->getRepository('App\Entity\Contacts')
+            ->findBy(array('user_id' => $userId),  array('name' => 'ASC'));
+
+        $shContacts = $this->getDoctrine()
+            ->getRepository('App\Entity\ContactRelations')
             ->findBy(array('user_id' => $userId));
 
-        return $this->render(
-            'show.html.twig',
-            array('contacts' => $contacts)
-        );
+        if(!empty($shContacts))
+        {
+            $contactIds = array();
+            foreach ($shContacts as $contact)
+            {
+                $contactId = $contact->getContactId();
+                $contactIds[] = $contactId;
+            }
+
+            $sharedContacts = $this->getDoctrine()
+            ->getRepository('App\Entity\Contacts')
+            ->findBy(array('id' => $contactIds), array('name' => 'ASC'));
+
+            return $this->render(
+                'show.html.twig',
+                array('contacts' => $contacts, 'sharedContacts' => $sharedContacts)
+            );
+        }else{
+            return $this->render(
+                'show.html.twig',
+                array('contacts' => $contacts, 'sharedContacts' => '')
+            );
+        }
+
     }
 
     /**
@@ -129,13 +154,12 @@ class ContactsController extends AbstractController
         }
 
         $form = $this->createForm(ContactsType::class, $contact);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             $contact = $form->getData();
             $em->flush();
-            return $this->redirect('/view-contact/' . $id);
+            return $this->redirect('http://194.5.157.97/symfony/balticamadeus/public/index.php');
         }
 
         return $this->render(
@@ -151,7 +175,9 @@ class ContactsController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $contact = $em->getRepository('App\Entity\Contacts')->find($id);
-        $users = $em->getRepository('App\Entity\User')->findAll();
+
+        $userId = $this->getUser()->getId();
+        $users = $em->getRepository('App\Entity\User')->findAllExceptThis($userId);
 
         return $this->render(
             'share.html.twig',
@@ -163,6 +189,7 @@ class ContactsController extends AbstractController
      */
     public function createShare(Request $request, $id)
     {
+
         $relation = new ContactRelations();
         $relation->setContactId($id);
 
@@ -200,11 +227,11 @@ class ContactsController extends AbstractController
 
         $sharedContacts = $this->getDoctrine()
             ->getRepository('App\Entity\Contacts')
-            ->findBy(array('id' => $contactIds));
+            ->findBy(array('id' => $contactIds), array('name' => 'ASC'));
 
         return $this->render(
             'shared-contacts.html.twig',
-            array('contacts' => $sharedContacts));
+            array('sharedContacts' => $sharedContacts));
     }
 
     /**

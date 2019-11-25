@@ -1,51 +1,60 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-{#    <div class="row mt-3">#}
-{#        <div class="col-8 offset-2">#}
-            <div class="card bg-light">
-                <div class="card-body">
-                    <h1 class="text-center">Share contact</h1>
+    <style>
+        .table {
+            display: table;
+            border-collapse: collapse;
+        }
 
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Phone</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-{#                        #}
-                            <tr>
-                                <td>{{ contact.name }}</td>
-                                <td>{{ contact.number }}</td>
-                                <td>
-                                    <label for="pet-select">Share with:</label>
-                                    <form action="{{ path('create-share', {'id': contact.id}) }}" method="POST">
-                                    <select name="owner" id="owner">
-                                        <option value="">--Please choose a name--</option>
-                                        {% for user in users %}
-                                        <option value="{{ user.id }}">{{ user.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <button type="submit" class="btn btn-info mt-4">share</button>
-                                    </form>
-                                </td>
-                            </tr>
+        .table .table-row {
+            display: table-row;
+        }
 
-                        </tbody>
-                    </table>
+        .table .table-cell {
+            display: table-cell;
+            text-align: left;
+            vertical-align: top;
+        }
+    </style>
 
-{#                    {{ form_start(form) }}#}
-{#                    <div class="mt-3">#}
-{#                        <label>Name</label>{{ form_widget(form.name) }}#}
-{#                    </div>#}
-{#                    <div class="mt-3">#}
-{#                        <label>Phone number</label>{{ form_widget(form.number) }}#}
-{#                    </div>#}
-{#                    <button type="submit" name="contacts[save]" id="contacts_save" class="btn btn-info mt-4">SAVE</button>#}
-{#                    {{ form_end(form) }}#}
+    <div class="card bg-light">
+        <div class="card-body">
+            <h1 class="text-center">Share contact</h1>
+            <div class="table">
+                <div class="table-row">
+                    <div class="table-cell">Name</div>
+                    <div class="table-cell">Phone</div>
+                    <div class="table-cell">Share with:</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-cell">{{ contact.name }}</div>
+                    <div class="table-cell">{{ contact.number }}</div>
+                    <div class="table-cell">
+                        <form class="form-horizontal" role="form" method="POST"
+                              action="{{ path('create-share', {'id': contact.id}) }}">
+                            <!-- Contacts -->
+                            <div class="form-group">
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <select name="owner" id="contacts-select" class="form-control" title="">
+                                            <option value="">--Please choose a name--</option>
+                                            {% for user in users %}
+                                                <option value="{{ user.id }}">{{ user.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="input-group-addon input-group-button">
+                                            <button type="submit" id="show-contact-modal-button" class="btn btn-info">
+                                                Share
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-{#        </div>#}
-{#    </div>#}
+        </div>
+    </div>
+
 {% endblock %}

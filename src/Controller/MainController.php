@@ -18,23 +18,30 @@ class  MainController extends AbstractController
      */
     public function index()
     {
-        return $this->render('home/index.html.twig');
-        //return new Response('<h1>My phone book</h1>');
+        $userId = $this->getUser()->getId();
+        $contacts = $this->getDoctrine()
+            ->getRepository('App\Entity\Contacts')
+            ->findBy(array('user_id' => $userId));
+
+        return $this->render(
+            'show.html.twig',
+            array('contacts' => $contacts)
+        );
     }
 
-    /**
-     * @Route("/custom/{name?}", name="custom")
-     * @param Request $request
-     * @return Response
-     */
-    public function custom(Request $request)
-    {
-        $name = $request->get('name');
-
-        return $this->render('home/contact.html.twig', [
-            'name' => $name
-        ]);
-    }
+//    /**
+//     * @Route("/custom/{name?}", name="custom")
+//     * @param Request $request
+//     * @return Response
+//     */
+//    public function custom(Request $request)
+//    {
+//        $name = $request->get('name');
+//
+//        return $this->render('home/contact.html.twig', [
+//            'name' => $name
+//        ]);
+//    }
 
 //    /**
 //     * @Route("/create-article")
