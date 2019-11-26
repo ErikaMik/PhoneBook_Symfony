@@ -29,26 +29,4 @@ class  MainController extends AbstractController
         );
     }
 
-//    /**
-//     * @Route("/custom/{name?}", name="custom")
-//     * @param Request $request
-//     * @return Response
-//     */
-//    public function custom(Request $request)
-//    {
-//        $name = $request->get('name');
-//
-//        return $this->render('home/contact.html.twig', [
-//            'name' => $name
-//        ]);
-//    }
-
-//    /**
-//     * @Route("/create-article")
-//     */
-//    public function createAction(Request $request) {
-//
-//
-//
-//    }
 }

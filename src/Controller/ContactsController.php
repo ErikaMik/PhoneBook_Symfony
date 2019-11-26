@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\User;
 
+
 class ContactsController extends AbstractController
 {
     /**
@@ -46,7 +47,7 @@ class ContactsController extends AbstractController
             $em->persist($contact);
             $em->flush();
 
-            return $this->redirect('http://194.5.157.97/symfony/balticamadeus/public/index.php');
+            return $this->redirect('http://194.5.157.97/symfony/balticamadeus/public/index.php/');
 
         }
 
@@ -136,7 +137,7 @@ class ContactsController extends AbstractController
         $em->remove($contact);
         $em->flush();
 
-        return $this->redirect('/show-contact');
+        return $this->redirect('http://194.5.157.97/symfony/balticamadeus/public/index.php/');
     }
 
     /**
@@ -159,7 +160,7 @@ class ContactsController extends AbstractController
         if ($form->isSubmitted()) {
             $contact = $form->getData();
             $em->flush();
-            return $this->redirect('http://194.5.157.97/symfony/balticamadeus/public/index.php');
+            return $this->redirect('http://194.5.157.97/symfony/balticamadeus/public/index.php/');
         }
 
         return $this->render(
